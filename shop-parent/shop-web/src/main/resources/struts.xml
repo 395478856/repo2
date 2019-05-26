@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 所有匹配*.action的请求都由struts2处理 -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 请求参数的编码方式 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 用spring管理Struts -->
+	<constant name="struts.objectFactory" value="spring" />
+	
+	<package name="userPackage" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="privilegeInterceptor"
+				class="cn.itheima.shop.web.interceptor.PrivilegeInterceptor"></interceptor>
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="toLogin">/login.jsp</result>
+		</global-results>
+		<action name="register" class="userAction" method="register">
+			<result name="success">/registerSuccess.jsp</result>
+			<result name="error">/registerFail.jsp</result>
+		</action>
+		<action name="active" class="userAction" method="active">
+			<result name="success" type="redirect">/login.jsp</result>
+			<result name="error">/registerFail.jsp</result>
+		</action>
+		<action name="checkUserName" class="userAction" method="checkUserName">
+			<result name="json" type="json">
+				<param name="root">jsonMsg</param>
+			</result>
+		</action>
+		<action name="login" class="userAction" method="login">
+			<result name="toHome" type="redirect">/index.jsp</result>
+			<result name="toLogin">/login.jsp</result>
+		</action>
+		<action name="loginOut" class="userAction" method="loginOut">
+			<result name="toLogin">/login.jsp</result>
+		</action>
+	</package>
+	
+	<package name="productPackage" namespace="/" extends="json-default">
+	<action name="findAllProduct" class="productAction" method="findAllProduct">
+			<result name="toIndex">/index.jsp</result>
+		</action>
+	
+	</package>
+</struts>

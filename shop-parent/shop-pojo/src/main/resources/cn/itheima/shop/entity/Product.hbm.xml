@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.itheima.shop.entity">
+	<class name="Product" table="product" >
+		<id name="pid">
+			<column name="pid"></column>
+			<generator class="native" />
+		</id>
+		<property name="pname" />
+		<property name="market_price" />
+		<property name="shop_price" />
+		<property name="pimage" />
+		<property name="pdate" />
+		<property name="is_hot" />
+		<property name="pdesc" />
+		<property name="pflag" />
+	</class>
+</hibernate-mapping>  
